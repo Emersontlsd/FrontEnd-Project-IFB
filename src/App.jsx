@@ -1,5 +1,6 @@
 // import Login from "./componentes/props/Login"
-import Login from "./componentes/state/Login"
+import Label from "./componentes/state/Label.jsx";
+import Login from "./componentes/state/Login.jsx"
 
 // Function Component //
 function App() {
@@ -7,7 +8,7 @@ function App() {
   return (
     <>
 
-      <Login />
+      <Label texto="IFB" />
       
     </>
   )
