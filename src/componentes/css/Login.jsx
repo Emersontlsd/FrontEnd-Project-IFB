@@ -19,7 +19,7 @@ function Login() {
 
                 <div className="form-group">
                     <Label texto="Senha:" />
-                    <InputPassword placeholder="password..." />
+                    <InputPassword placeholder="Password..." />
                 </div>
 
                 <Button valor="Logar" />
