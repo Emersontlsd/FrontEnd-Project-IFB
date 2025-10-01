@@ -1,4 +1,4 @@
-import "./label.css"
+import "./Label.css"
 import React, {useState} from "react"
 
 export default function Label({texto}) {

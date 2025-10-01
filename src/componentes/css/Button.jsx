@@ -1,4 +1,4 @@
-import "./Buttos.css";
+import "./Button.css";
 import React, {useState} from "react";
 
 export default function Button ({valor}) {
