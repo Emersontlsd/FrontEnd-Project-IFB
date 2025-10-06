@@ -1,15 +1,15 @@
 // import Login from "./componentes/props/Login"
 // import Login from "./componentes/state/Login.jsx"
-
-import CadastroPF from "./componentes/css/CadastroPF.jsx";
-import Login from "./componentes/css/Login.jsx"
+// import Login from "./componentes/css/Login.jsx"
+// import CadastroPF from "./componentes/css/CadastroPF.jsx";
+import Login from "./componentes/tailwind/Login";
 
 // Function Component //
 function App() {
   
   return (
     <>
-      <CadastroPF />
+      <Login />
     </>
   )
 };
