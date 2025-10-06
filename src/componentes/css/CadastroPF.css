@@ -1,120 +1,116 @@
-/* Geral */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-}
-
-/* Centralização do formulário */
-.cadastro-container {
-    width: 100vh;
-    display: flex;  /* Usando flexbox para colocar as seções lado a lado */
-    justify-content: space-between;  /* Espaço entre as seções */
-    align-items: flex-start;  /* Alinha as seções ao topo */
+/* .cadastro-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
+    background-color: #f5f5f5;
     padding: 2rem;
-    flex-wrap: wrap;  /* Para garantir que elas se ajustem quando necessário */
-}
+    box-sizing: border-box;
+    overflow: auto;
+    
+  }
+  */
 
-/* Estilo das seções de Cadastro Pessoa Física, Título de Eleitor, Endereço e Contato */
-section {
-    background: #fff;
+  .cadastro-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* mudar para flex-start se quiser o formulário no topo */
+    min-height: 100vh;
+    width: 100vw; /* ocupa toda a largura */
+    background-color: #f5f5f5;
     padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    width: 48%;  /* 48% de largura para as seções ficarem lado a lado */
-    margin-bottom: 2rem;  /* Espaçamento entre as seções */
-    transition: transform 0.3s ease-in-out;
-}
+    box-sizing: border-box;
+  }
+  
+   /* .cadastro-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap; /* permite quebra de linha em telas menores 
+    gap: 1rem;
+    max-width: 1000px;
+  }
+  */ 
 
-section:hover {
-    transform: translateY(-5px);  /* Leve elevação ao passar o mouse */
-}
+  .cadastro-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;           /* Ocupa toda a largura do container */
+    max-width: 100%;       /* Remove limite de largura */
+    box-sizing: border-box;
+  }
+  
+  
+  /* 
+  section {
+    flex: 1 1 45%;
+    padding: 1rem;
+    border-radius: 6px;
+    box-sizing: border-box;
+  } 
+  */
 
-/* Estilo dos títulos das seções */
-section h2 {
-    font-size: 1.5rem;
+  section {
+    flex: 1 1 48%;         /* Ocupa até 48% da linha com flexibilidade */
+    padding: 1rem;
+    border-radius: 6px;
+    box-sizing: border-box;
+    min-width: 300px;      /* Ajuda na responsividade */
+  }
+  
+  .cadastro-pessoa {
+    background-color: #e3f2fd; /* azul claro */
+  }
+  
+  .titulo-eleitor {
+    background-color: #fce4ec; /* rosa claro */
+  }
+  
+  .endereco {
+    background-color: #e8f5e9; /* verde claro */
+  }
+  
+  .contato {
+    background-color: #fff3e0; /* laranja claro */
+  }
+  
+  .form-group {
     margin-bottom: 1rem;
-    color: #333;
-    font-weight: 500;
-    border-bottom: 3px solid #0056b3;
-    padding-bottom: 0.5rem;
-}
-
-/* Estilo específico das seções */
-.cadastro-pessoa {
-    background-color: #e9f7fe;
-}
-
-.titulo-eleitor {
-    background-color: #e9f7fe;
-}
-
-.endereco {
-    background-color: #f3f9f3;
-}
-
-.contato {
-    background-color: #fff8e1;
-}
-
-/* Inputs */
-input[type="text"] {
-    padding: 0.8rem;
-    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input {
+    padding: 0.5rem;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-top: 0.5rem;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-input[type="text"]:focus {
-    border-color: #0056b3;
-    box-shadow: 0 0 8px rgba(0, 86, 179, 0.2);
-}
-
-/* Botão */
-button {
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
-    color: #fff;
-    background-color: #0056b3;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  button {
+    padding: 0.75rem 1.5rem;
+    background-color: #1976d2;
+    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
+    font-size: 1rem;
     cursor: pointer;
-    width: 100%;
-    margin-top: 2rem;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-button:hover {
-    background-color: #003f8a;
-    transform: scale(1.05);
-}
-
-button:active {
-    transform: scale(0.98);
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .cadastro-container {
-        flex-direction: column;  /* Muda para coluna em telas pequenas */
-        align-items: center;
-    }
-
-    section {
-        width: 90%;  /* 90% de largura para ocupar mais espaço em telas pequenas */
-    }
-
-    input[type="text"] {
-        font-size: 0.9rem;
-    }
-
-    button {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-    }
-}
+    margin-top: 1rem;
+  }
+  
+  button:hover {
+    background-color: #1565c0;
+  }
+  

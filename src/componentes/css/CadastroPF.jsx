@@ -44,6 +44,22 @@ function CadastroPF() {
                         <InputText placeholder="seção eleitoral..." />
                     </div>
                 </section>
+                <section className="teste">
+                    <LabelTitle texto="Teste 1:" />
+
+                    <div className="form-group">
+                        <Label texto="Teste:" />
+                        <InputText placeholder="Teste..." />
+                    </div>
+                    <div className="form-group">
+                        <Label texto="Teste:" />
+                        <InputText placeholder="Teste Teste..." />
+                    </div>
+                    <div className="form-group">
+                        <Label texto="Teste:" />
+                        <InputText placeholder="Teste Teste..." />
+                    </div>
+                </section>
 
                 {/* Seção Endereço */}
                 <section className="endereco">
