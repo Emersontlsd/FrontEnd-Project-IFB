@@ -1,0 +1,25 @@
+import React, { useState } from "react";
+import { Input, Typography } from "antd";
+
+const { text } = Typography;
+
+export default function InputPassword ({placeholder}) {
+    const [senha, setSenha] = useState("");
+
+    return (
+        <div>
+            <Input.Password
+                placeholder={placeholder}
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                size="large"
+            />
+            {/*Senha && (
+                 <Text type="secondary" italic style={{ display: "block", marginTop: 6 }}>
+                    Senha digitada: {senha}
+                </Text>
+
+            )*/}
+        </div>
+    );
+}
