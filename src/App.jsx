@@ -4,14 +4,15 @@
 // import CadastroPF from "./componentes/css/CadastroPF.jsx";
 // import Login from "./componentes/tailwind/Login";
 import CadastroGeral from "./componentes/tailwind/Desafio/CadastroGeral";
-import Login from "./componentes/antd/Login.jsx"
+import PessoaFisicaForm from "./componentes/antd/desafio/PessoaFisicaForm"
+import PessoaJuridicaForm from "./componentes/antd/desafio/PessoaJuridicaForm"
 
 // Function Component //
 function App() {
   
   return (
     <>
-      <Login />
+      <PessoaJuridicaForm />
     </>
   )
 };

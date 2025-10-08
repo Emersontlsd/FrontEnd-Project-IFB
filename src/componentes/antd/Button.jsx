@@ -5,7 +5,7 @@ export default function Button({valor}) {
     const [texto, setTexto] = useState(valor);
     
     const handleClick = () => {
-        setTexto("Você clicou!");
+       //  setTexto("Você clicou!");
         message.success("Botão clicado com sucesso!");
     };
 
