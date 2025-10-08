@@ -15,13 +15,13 @@ const CadastroGeral = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100 p-8">
+    <div className="p-6 bg-gray-900 rounded-2xl shadow-lg w-full">
       <h1 className="text-2xl font-bold mb-8 text-center text-indigo-400">
         Cadastro Completo
       </h1>
 
       {/* Layout em Grid Responsivo */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="p-6 bg-gray-900 rounded-2xl shadow-lg w-full">
         <PessoaFisicaForm formData={formData} onChange={handleChange} />
         <PessoaJuridicaForm formData={formData} onChange={handleChange} />
         <ContatoForm formData={formData} onChange={handleChange} />
