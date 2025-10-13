@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Radio, DatePicker, Row, Col, message } from "antd";
 import { ArrowUpOutlined } from "@ant-design/icons";
 import EnderecoForm from "./EnderecoForm";
+import EnderecoFormComBuscaCep from "./EnderecoFormComBuscaCep";
 import TelefoneList from "./TelefoneList";
 import "./pessoaform.css";
 
@@ -86,7 +87,7 @@ function PessoaForm() {
                         <Input placeholder="exemplo@email.com" />
                     </Form.Item>
 
-                    <EnderecoForm />
+                    <EnderecoFormComBuscaCep />
                     <TelefoneList form={form} />
 
                     {tipo === "PF" ? (
