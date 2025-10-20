@@ -17,7 +17,7 @@ function EnderecoFormComBuscaCep() {
             }
             return response.data;
         } catch (err) {
-            throw new Error("Erro ao consultar o CEP.");
+            throw new Error("Erro ao consultar. CEP INVÁLIDO!");
         }
     };
 
@@ -36,9 +36,15 @@ function EnderecoFormComBuscaCep() {
         if (cep.length < 8) return; // Aguarda até o campo ter 8 dígitos
 
         if (!/^\d{8}$/.test(cep)) {
-            message.error("CEP inválido. Deve conter exatamente 8 números.");
+            form.setFields([
+                {
+                    name: ["endereco", "cep"],
+                    errors: ["CEP inválido. Deve conter exatamente 8 números."],
+                },
+            ]);
             return;
         }
+        
 
         try {
             const dados = await buscarEnderecoPorCep(cep);
@@ -66,8 +72,14 @@ function EnderecoFormComBuscaCep() {
                 },
             });
         } catch (error) {
-            message.error(error.message);
+            form.setFields([
+                {
+                    name: ["endereco", "cep"],
+                    errors: [error.message || "Erro ao consultar o CEP. CEP INVÁLIDO!"],
+                },
+            ]);
         }
+        
     };
 
     return (
