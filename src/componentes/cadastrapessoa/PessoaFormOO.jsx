@@ -7,7 +7,7 @@ import PFForm from "./PF";
 import PJForm from "./PJ";
 import "./pessoaform.css";
 
-// === Importação das classes de modelo (todas dentro da pasta /pessoas)
+// === Importação das classes de modelo
 import PF from "../../objetos/pessoas/PF.mjs";
 import PJ from "../../objetos/pessoas/PJ.mjs";
 import Endereco from "../../objetos/pessoas/Endereco.mjs";
@@ -65,6 +65,7 @@ function PessoaForm() {
 
         pessoa = pf;
       }
+
       // ===== Pessoa Jurídica =====
       else if (values.tipo === "PJ") {
         const pj = new PJ();
@@ -95,7 +96,6 @@ function PessoaForm() {
         pessoa = pj;
       }
 
-      console.clear();
       console.log("✅ OBJETO FINAL INSTANTIADO ===>", pessoa);
       message.success("Objeto criado com sucesso! Veja o console.");
     } catch (erro) {
@@ -110,24 +110,18 @@ function PessoaForm() {
   function onChangeTipo(e) {
     const novoTipo = e.target.value;
     setTipo(novoTipo);
-    const valoresAtuais = form.getFieldsValue();
-    form.resetFields();
-    form.setFieldsValue({
-      ...valoresAtuais,
-      tipo: novoTipo,
-    });
+    form.setFieldValue("tipo", novoTipo);
+
+    // (opcional) limpar campos específicos ao trocar tipo
+    form.resetFields(["cpf", "cnpj", "titulo", "ie"]);
   }
 
   // =========================
   // Botão “voltar ao topo”
   // =========================
-  useEffect(function () {
+  useEffect(() => {
     function verificarScroll() {
-      if (window.scrollY > 200) {
-        setMostrarTopo(true);
-      } else {
-        setMostrarTopo(false);
-      }
+      setMostrarTopo(window.scrollY > 200);
     }
     window.addEventListener("scroll", verificarScroll);
     return () => window.removeEventListener("scroll", verificarScroll);
@@ -145,15 +139,15 @@ function PessoaForm() {
       <div className="form-container">
         <h2>Cadastro de {tipo === "PF" ? "Pessoa Física" : "Pessoa Jurídica"}</h2>
 
-        <Form layout="vertical" form={form} onFinish={onFinish}>
+        <Form
+          layout="vertical"
+          form={form}
+          onFinish={onFinish}
+          initialValues={{ tipo: "PF" }}
+        >
           {/* Tipo de Pessoa */}
-          <Form.Item
-            label="Tipo de Pessoa"
-            name="tipo"
-            initialValue="PF"
-            style={{ marginBottom: 10 }}
-          >
-            <Radio.Group onChange={onChangeTipo}>
+          <Form.Item label="Tipo de Pessoa" name="tipo" style={{ marginBottom: 10 }}>
+            <Radio.Group value={tipo} onChange={onChangeTipo}>
               <Radio value="PF">Pessoa Física</Radio>
               <Radio value="PJ">Pessoa Jurídica</Radio>
             </Radio.Group>
