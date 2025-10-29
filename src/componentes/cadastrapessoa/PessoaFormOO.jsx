@@ -3,11 +3,11 @@ import { Form, Input, Button, Radio, message } from "antd";
 import { ArrowUpOutlined } from "@ant-design/icons";
 import EnderecoForm from "./EnderecoForm";
 import TelefoneList from "./TelefoneListOO";
-import PFForm from "./PF";
-import PJForm from "./PJ";
+import PFForm from "./PFForm";
+import PJForm from "./PJForm";
 import "./pessoaform.css";
 
-// === Importação das classes de modelo
+// === Importação das classes de modelo (todas dentro da pasta /pessoas)
 import PF from "../../objetos/pessoas/PF.mjs";
 import PJ from "../../objetos/pessoas/PJ.mjs";
 import Endereco from "../../objetos/pessoas/Endereco.mjs";
@@ -65,7 +65,6 @@ function PessoaForm() {
 
         pessoa = pf;
       }
-
       // ===== Pessoa Jurídica =====
       else if (values.tipo === "PJ") {
         const pj = new PJ();
@@ -96,6 +95,7 @@ function PessoaForm() {
         pessoa = pj;
       }
 
+      console.clear();
       console.log("✅ OBJETO FINAL INSTANTIADO ===>", pessoa);
       message.success("Objeto criado com sucesso! Veja o console.");
     } catch (erro) {
@@ -110,18 +110,24 @@ function PessoaForm() {
   function onChangeTipo(e) {
     const novoTipo = e.target.value;
     setTipo(novoTipo);
-    form.setFieldValue("tipo", novoTipo);
-
-    // (opcional) limpar campos específicos ao trocar tipo
-    form.resetFields(["cpf", "cnpj", "titulo", "ie"]);
+    const valoresAtuais = form.getFieldsValue();
+    form.resetFields();
+    form.setFieldsValue({
+      ...valoresAtuais,
+      tipo: novoTipo,
+    });
   }
 
   // =========================
   // Botão “voltar ao topo”
   // =========================
-  useEffect(() => {
+  useEffect(function () {
     function verificarScroll() {
-      setMostrarTopo(window.scrollY > 200);
+      if (window.scrollY > 200) {
+        setMostrarTopo(true);
+      } else {
+        setMostrarTopo(false);
+      }
     }
     window.addEventListener("scroll", verificarScroll);
     return () => window.removeEventListener("scroll", verificarScroll);
@@ -139,15 +145,15 @@ function PessoaForm() {
       <div className="form-container">
         <h2>Cadastro de {tipo === "PF" ? "Pessoa Física" : "Pessoa Jurídica"}</h2>
 
-        <Form
-          layout="vertical"
-          form={form}
-          onFinish={onFinish}
-          initialValues={{ tipo: "PF" }}
-        >
+        <Form layout="vertical" form={form} onFinish={onFinish}>
           {/* Tipo de Pessoa */}
-          <Form.Item label="Tipo de Pessoa" name="tipo" style={{ marginBottom: 10 }}>
-            <Radio.Group value={tipo} onChange={onChangeTipo}>
+          <Form.Item
+            label="Tipo de Pessoa"
+            name="tipo"
+            initialValue="PF"
+            style={{ marginBottom: 10 }}
+          >
+            <Radio.Group onChange={onChangeTipo}>
               <Radio value="PF">Pessoa Física</Radio>
               <Radio value="PJ">Pessoa Jurídica</Radio>
             </Radio.Group>

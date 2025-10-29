@@ -10,7 +10,7 @@
 import PF from "./componentes/cadastrapessoa/PF.jsx";
 import PJ from "./componentes/cadastrapessoa/PJ.jsx";
 // import PessoaForm from "./componentes/cadastrapessoa/PessoaForm.jsx";
-import PessoaForm from "./componentes/cadastrapessoa/PessoaFormOO.jsx";
+import PessoaFormOO from "./componentes/cadastrapessoa/PessoaFormOO.jsx";
 
 
 // Function Component //
@@ -18,7 +18,7 @@ function App() {
   
   return (
     <>
-      <PessoaForm />
+      <PessoaFormOO />
     </>
   )
 };
