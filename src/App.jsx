@@ -10,17 +10,20 @@
 import PF from "./componentes/cadastrapessoa/PF.jsx";
 import PJ from "./componentes/cadastrapessoa/PJ.jsx";
 // import PessoaForm from "./componentes/cadastrapessoa/PessoaForm.jsx";
-import PessoaFormOO from "./componentes/cadastrapessoa/PessoaFormOO.jsx";
+//import PessoaFormOO from "./componentes/cadastrapessoa/PessoaFormOO.jsx";
 
 
-// Function Component //
+// necessário apenas a partir da utilização de rotas para outras telas
+import { BrowserRouter as Router } from "react-router-dom";
+import AppRoutes from "./routes/AppRoutes.jsx";
+
 function App() {
-  
-  return (
-    <>
-      <PessoaFormOO />
-    </>
-  )
-};
 
-export default App;
+  return (
+    <Router>
+      <AppRoutes />
+    </Router>
+  )
+}
+
+export default App
