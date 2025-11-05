@@ -144,7 +144,6 @@ export default function PessoaFormOOV2() {
           ie.setNumero(values.ie.numero);
           ie.setEstado(values.ie.estado);
 
-          // 👇 converte dayjs → string para salvar no DAO
           const dr = values.ie.dataRegistro;
           const dataRegistro =
             dr && typeof dr === "object" && typeof dr.format === "function"
@@ -195,13 +194,15 @@ export default function PessoaFormOOV2() {
         overflowX: "hidden",
         height: "100vh",
         background: "#f9f9f9",
+        padding: "12px",
       }}
     >
       <div
         className="form-container"
         style={{
-          maxWidth: 800,
-          margin: "24px auto",
+          width: "95%",
+          maxWidth: "1200px",
+          margin: "0 auto",
           background: "#fff",
           padding: 24,
           borderRadius: 8,
@@ -232,47 +233,64 @@ export default function PessoaFormOOV2() {
             </Radio.Group>
           </Form.Item>
 
-          <Form.Item
-            label="Nome"
-            name="nome"
-            rules={[{ required: true, message: "Informe o nome!" }]}
+          {/* === Layout Flex: formulário + endereço lado a lado === */}
+          <div
+            style={{
+              display: "flex",
+              gap: "24px",
+              flexWrap: "wrap",
+            }}
           >
-            <Input placeholder="Nome completo ou razão social" />
-          </Form.Item>
+            {/* Coluna do formulário principal */}
+            <div style={{ flex: 1, minWidth: 300 }}>
+              <Form.Item
+                label="Nome"
+                name="nome"
+                rules={[{ required: true, message: "Informe o nome!" }]}
+              >
+                <Input placeholder="Nome completo ou razão social" />
+              </Form.Item>
 
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[
-              { required: true, message: "Informe o e-mail!" },
-              { type: "email", message: "Formato de e-mail inválido!" },
-            ]}
-          >
-            <Input placeholder="exemplo@email.com" />
-          </Form.Item>
+              <Form.Item
+                label="Email"
+                name="email"
+                rules={[
+                  { required: true, message: "Informe o e-mail!" },
+                  { type: "email", message: "Formato de e-mail inválido!" },
+                ]}
+              >
+                <Input placeholder="exemplo@email.com" />
+              </Form.Item>
 
-          {tipo === "PF" ? (
-            <Form.Item
-              label="CPF"
-              name="cpf"
-              rules={[{ required: true, message: "Informe o CPF!" }]}
-            >
-              <Input placeholder="Somente números" maxLength={11}/>
-            </Form.Item>
-          ) : (
-            <Form.Item
-              label="CNPJ"
-              name="cnpj"
-              rules={[{ required: true, message: "Informe o CNPJ!" }]}
-            >
-              <Input placeholder="Somente números" maxLength={18}/>
-            </Form.Item>
-          )}
+              {tipo === "PF" ? (
+                <Form.Item
+                  label="CPF"
+                  name="cpf"
+                  rules={[{ required: true, message: "Informe o CPF!" }]}
+                >
+                  <Input placeholder="Somente números" maxLength={11} />
+                </Form.Item>
+              ) : (
+                <Form.Item
+                  label="CNPJ"
+                  name="cnpj"
+                  rules={[{ required: true, message: "Informe o CNPJ!" }]}
+                >
+                  <Input placeholder="Somente números" maxLength={18} />
+                </Form.Item>
+              )}
 
-          <EnderecoForm />
-          <TelefoneList form={form} />
-          {tipo === "PF" ? <PFForm /> : <PJForm />}
+              <TelefoneList form={form} />
+              {tipo === "PF" ? <PFForm /> : <PJForm />}
+            </div>
 
+            {/* Coluna do endereço */}
+            <div style={{ flex: 1, minWidth: 300 }}>
+              <EnderecoForm />
+            </div>
+          </div>
+
+          {/* Botões */}
           <Form.Item style={{ marginTop: 20 }}>
             <Button type="primary" htmlType="submit" block>
               {editando ? "Salvar Alterações" : "Salvar"}

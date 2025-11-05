@@ -14,6 +14,7 @@ function MainLayout() {
   const [isMobile, setIsMobile] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
 
+  // Detecta tamanho da tela
   useEffect(() => {
     function handleResize() {
       setIsMobile(window.innerWidth < 768);
@@ -43,13 +44,7 @@ function MainLayout() {
   ];
 
   return (
-    <Layout
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column", // ⚡ faz Content ocupar o espaço restante
-      }}
-    >
+    <Layout style={{ minHeight: "100vh", background: "#f7f7f7" }}>
       {/* ===== Cabeçalho ===== */}
       <Header
         style={{
@@ -65,6 +60,7 @@ function MainLayout() {
           paddingInline: 16,
         }}
       >
+        {/* Logo / Título */}
         <div
           style={{
             fontSize: "1.2rem",
@@ -75,6 +71,7 @@ function MainLayout() {
           Sistema de Cadastro
         </div>
 
+        {/* Menu Desktop */}
         {!isMobile && (
           <Menu
             mode="horizontal"
@@ -90,6 +87,7 @@ function MainLayout() {
           />
         )}
 
+        {/* Botão Mobile */}
         {isMobile && (
           <Button
             type="text"
@@ -118,13 +116,11 @@ function MainLayout() {
       {/* ===== Conteúdo principal ===== */}
       <Content
         style={{
-          flex: 1, // ⚡ ocupa todo espaço restante entre header e footer
           padding: "24px",
-          margin: "24px",
           background: "#ffffff",
+          margin: "24px",
           borderRadius: "8px",
           boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
-          overflowY: "auto", // permite scroll interno se o formulário for grande
         }}
       >
         <Outlet />
@@ -134,8 +130,8 @@ function MainLayout() {
       <Footer
         style={{
           textAlign: "center",
-          background: "#111827", // cor personalizada
-          color: "#fff",
+          background: "#f7f7f7",
+          color: "#555",
         }}
       >
         Sistema de Cadastro de Pessoas ©2025
