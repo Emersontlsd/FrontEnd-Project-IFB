@@ -5,7 +5,12 @@ import {
   UserAddOutlined,
   UnorderedListOutlined,
   MenuOutlined,
+  FacebookFilled,
+  InstagramFilled,
+  LinkedinFilled,
+  MailOutlined,
 } from "@ant-design/icons";
+import { FacebookOutlined, InstagramOutlined } from "@ant-design/icons";
 
 const { Header, Content, Footer } = Layout;
 
@@ -25,7 +30,7 @@ function MainLayout() {
 
   const currentKey =
     location.pathname.startsWith("/listar") ||
-    location.pathname.startsWith("/visualizar")
+      location.pathname.startsWith("/visualizar")
       ? "/listar"
       : "/cadastrar";
 
@@ -47,7 +52,7 @@ function MainLayout() {
       style={{
         minHeight: "100vh",
         display: "flex",
-        flexDirection: "column", // ⚡ faz Content ocupar o espaço restante
+        flexDirection: "column",
       }}
     >
       {/* ===== Cabeçalho ===== */}
@@ -118,28 +123,77 @@ function MainLayout() {
       {/* ===== Conteúdo principal ===== */}
       <Content
         style={{
-          flex: 1, // ⚡ ocupa todo espaço restante entre header e footer
+          flex: 1,
           padding: "24px",
           margin: "24px",
           background: "#ffffff",
           borderRadius: "8px",
           boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
-          overflowY: "auto", // permite scroll interno se o formulário for grande
+          overflowY: "auto",
         }}
       >
         <Outlet />
       </Content>
 
       {/* ===== Rodapé ===== */}
+
+
       <Footer
         style={{
           textAlign: "center",
-          background: "#111827", // cor personalizada
+          background: "#3B82F6", // azul claro
           color: "#fff",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "10px",
+          padding: "20px 50px",
         }}
       >
         Sistema de Cadastro de Pessoas ©2025
+
+        <div style={{ display: "flex", gap: "15px", marginTop: "10px" }}>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+            <FacebookOutlined
+              style={{
+                fontSize: "24px",
+                color: "#fff",
+                border: "2px solid #000", // borda preta
+                borderRadius: "50%",
+                padding: "8px",
+                transition: "all 0.3s",
+              }}
+            />
+          </a>
+
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+            <InstagramOutlined
+              style={{
+                fontSize: "24px",
+                color: "#fff",
+                border: "2px solid #000", // borda preta
+                borderRadius: "50%",
+                padding: "8px",
+                transition: "all 0.3s",
+              }}
+            />
+          </a>
+
+          <a href="mailto:contato@exemplo.com">
+            <MailOutlined
+              style={{
+                fontSize: "24px",
+                color: "#fff",
+                border: "2px solid #000", // borda preta
+                borderRadius: "50%",
+                padding: "8px",
+                transition: "all 0.3s",
+              }}
+            />
+          </a>
+        </div>
       </Footer>
+
     </Layout>
   );
 }
