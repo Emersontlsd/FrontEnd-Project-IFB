@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import MainLayout from "../layout/MainLayout.jsx";
-import PessoaForm from "../components/cadastrapessoa/PessoaFormOOV2.jsx";
-import ListaPessoas from "../components/listapessoas/ListaPessoasV2.jsx";
-import VisualizaPessoa from "../components/visualizapessoa/VisualizaPessoaV2.jsx";
+import PessoaForm from "../componentes/cadastrapessoa/PessoaFormOOV2.jsx";
+import ListaPessoas from "../componentes/listapessoas/ListaPessoasV2.jsx";
+import VisualizaPessoa from "../componentes/visualizapessoa/VisualizaPessoaV2.jsx";
 
 function AppRoutes() {
   return (

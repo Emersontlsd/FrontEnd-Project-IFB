@@ -15,7 +15,8 @@ import PJ from "./componentes/cadastrapessoa/PJ.jsx";
 
 // necessário apenas a partir da utilização de rotas para outras telas
 import { BrowserRouter as Router } from "react-router-dom";
-import AppRoutes from "./routes/AppRoutes.jsx";
+//import AppRoutes from "./routes/AppRoutes.jsx";
+import AppRoutes from "./routes/AppRoutesV2.jsx";
 
 function App() {
 
