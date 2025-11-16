@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Radio, DatePicker, Row, Col, message } from "antd";
+import { Form, Input, Button, Radio, DatePicker, message } from "antd";
 import { ArrowUpOutlined } from "@ant-design/icons";
-import EnderecoForm from "./EnderecoForm";
 import EnderecoFormComBuscaCep from "./EnderecoFormComBuscaCep";
 import TelefoneList from "./TelefoneList";
+import dayjs from "dayjs";
 import "./pessoaform.css";
-
-
 
 function PessoaForm() {
     const [tipo, setTipo] = useState("PF");
@@ -14,18 +12,39 @@ function PessoaForm() {
     const [mostrarTopo, setMostrarTopo] = useState(false);
 
     function onFinish(values) {
-        console.log("📋 Dados submetidos:", values);
-        message.success("Dados armazenados localmente (modo formulário).");
+        const registros = JSON.parse(localStorage.getItem("pessoas")) || [];
+
+        const novoRegistro = {
+            ...values,
+            id: Date.now(),
+            // conversão das datas
+            dataNascimento: values.dataNascimento
+                ? values.dataNascimento.format("YYYY-MM-DD")
+                : null,
+
+            ie: values.ie
+                ? {
+                      ...values.ie,
+                      dataRegistro: values.ie.dataRegistro
+                          ? values.ie.dataRegistro.format("YYYY-MM-DD")
+                          : null,
+                  }
+                : null,
+        };
+
+        registros.push(novoRegistro);
+        localStorage.setItem("pessoas", JSON.stringify(registros));
+
+        message.success("Dados salvos no localStorage!");
+        form.resetFields();
     }
 
     function onChangeTipo(e) {
         const novoTipo = e.target.value;
         setTipo(novoTipo);
 
-        // Pega os valores atuais do formulário
         const valoresAtuais = form.getFieldsValue();
 
-        // Reseta todos os campos, mas mantém o tipo selecionado
         form.resetFields();
         form.setFieldsValue({
             ...valoresAtuais,
@@ -33,21 +52,14 @@ function PessoaForm() {
         });
     }
 
-
-    // Mostra/esconde o botão conforme a rolagem
-    useEffect(function () {
+    useEffect(() => {
         function verificarScroll() {
-            if (window.scrollY > 200) {
-                setMostrarTopo(true);
-            } else {
-                setMostrarTopo(false);
-            }
+            setMostrarTopo(window.scrollY > 200);
         }
         window.addEventListener("scroll", verificarScroll);
         return () => window.removeEventListener("scroll", verificarScroll);
     }, []);
 
-    // Função para rolar suavemente até o topo
     function voltarAoTopo() {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -58,12 +70,7 @@ function PessoaForm() {
                 <h2>Cadastro de {tipo === "PF" ? "Pessoa Física" : "Pessoa Jurídica"}</h2>
 
                 <Form layout="vertical" form={form} onFinish={onFinish}>
-                    <Form.Item
-                        label="Tipo de Pessoa"
-                        name="tipo"
-                        initialValue="PF"
-                        style={{ marginBottom: 10 }}
-                    >
+                    <Form.Item label="Tipo de Pessoa" name="tipo" initialValue="PF">
                         <Radio.Group onChange={onChangeTipo}>
                             <Radio value="PF">Pessoa Física</Radio>
                             <Radio value="PJ">Pessoa Jurídica</Radio>
@@ -83,10 +90,10 @@ function PessoaForm() {
                         name="email"
                         rules={[
                             { required: true, message: "Informe o e-mail!" },
-                            { type: "email", message: "Formato de e-mail inválido!" },
+                            { type: "email", message: "E-mail inválido!" },
                         ]}
                     >
-                        <Input placeholder="exemplo@email.com" />
+                        <Input placeholder="email@exemplo.com" />
                     </Form.Item>
 
                     <EnderecoFormComBuscaCep />
@@ -103,15 +110,20 @@ function PessoaForm() {
                             </Form.Item>
 
                             <Form.Item label="Data de Nascimento" name="dataNascimento">
-                                <DatePicker format="DD/MM/YYYY" style={{ width: "100%" }} />
+                                <DatePicker
+                                    format="DD/MM/YYYY"
+                                    style={{ width: "100%" }}
+                                />
                             </Form.Item>
 
                             <Form.Item label="Título Eleitoral - Número" name={["titulo", "numero"]}>
                                 <Input placeholder="Número do título" />
                             </Form.Item>
+
                             <Form.Item label="Zona" name={["titulo", "zona"]}>
                                 <Input placeholder="Zona eleitoral" />
                             </Form.Item>
+
                             <Form.Item label="Seção" name={["titulo", "secao"]}>
                                 <Input placeholder="Seção eleitoral" />
                             </Form.Item>
@@ -125,27 +137,37 @@ function PessoaForm() {
                             >
                                 <Input placeholder="00.000.000/0000-00" />
                             </Form.Item>
+
                             <Form.Item label="Inscrição Estadual" name={["ie", "numero"]}>
                                 <Input placeholder="Número da IE" />
                             </Form.Item>
+
                             <Form.Item label="Estado" name={["ie", "estado"]}>
                                 <Input placeholder="UF" maxLength={2} />
                             </Form.Item>
-                            <Form.Item label="Data de Registro" name={["ie", "dataRegistro"]}>
-                                <DatePicker format="DD/MM/YYYY" style={{ width: "100%" }} />
+
+                            <Form.Item
+                                label="Data de Registro"
+                                name={["ie", "dataRegistro"]}
+                                rules={[{ required: true, message: "Informe a data!" }]}
+                            >
+                                <DatePicker
+                                    format="DD/MM/YYYY"
+                                    placeholder="Selecione a data"
+                                    style={{ width: "100%" }}
+                                />
                             </Form.Item>
                         </>
                     )}
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" onClick={onFinish} block>
+                        <Button type="primary" htmlType="submit" block>
                             Salvar
                         </Button>
                     </Form.Item>
                 </Form>
             </div>
 
-            {/* Botão flutuante de voltar ao topo */}
             <button
                 className={`scroll-top-button ${mostrarTopo ? "" : "hidden"}`}
                 onClick={voltarAoTopo}
