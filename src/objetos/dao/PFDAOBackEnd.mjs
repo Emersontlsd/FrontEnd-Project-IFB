@@ -102,7 +102,8 @@ export default class PFDAO {
       email: pf.email,
       cpf: pf.cpf,
 
-      // ✔️ se backend retornar null/undefined/vazio, não quebra
+      // *** aqui foi adicionado duas formas de receber o data_nascimento do backend
+      // se backend retornar null/undefined/vazio, não quebra
       dataNascimento: pf.dataNascimento || pf.data_nascimento || null,
 
       endereco: pf.endereco
@@ -133,7 +134,7 @@ export default class PFDAO {
       nome: pf.getNome?.(),
       email: pf.getEmail?.(),
       cpf: pf.getCPF?.(),
-
+      //chamada para data de nascimento 
       dataNascimento: pf.getDataNascimento?.() || null,
 
       endereco: end

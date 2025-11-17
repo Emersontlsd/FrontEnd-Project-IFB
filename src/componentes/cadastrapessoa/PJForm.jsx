@@ -45,6 +45,7 @@ export default function PJForm() {
       <Form.Item
         label="Data de Registro da IE"
         name={["ie", "dataRegistro"]}
+        rules={[{ required: true, message: "Informe a data de registro!" }]}
       >
         <DatePicker
           style={{ width: "100%" }}
