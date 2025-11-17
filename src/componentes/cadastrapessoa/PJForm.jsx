@@ -48,7 +48,7 @@ export default function PJForm() {
       >
         <DatePicker
           style={{ width: "100%" }}
-          format="YYYY-MM-DD"
+          format="DD/MM/YYYY"
           allowClear
           placeholder="Selecione a data de registro"
         />

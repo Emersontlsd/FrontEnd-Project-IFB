@@ -8,6 +8,13 @@ export default function VisualizaPessoa() {
   const { tipo, id } = useParams();
   const navigate = useNavigate();
 
+  const formatarData = (data) => {
+    if (!data) return "Não informado";
+    const d = new Date(data);
+    if (isNaN(d)) return data;
+    return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+  };
+
   const [pessoa, setPessoa] = useState(null);
 
   useEffect(() => {
@@ -42,9 +49,8 @@ export default function VisualizaPessoa() {
       }}
     >
       <Card
-        title={`Detalhes da ${
-          tipo === "PF" ? "Pessoa Física" : "Pessoa Jurídica"
-        }`}
+        title={`Detalhes da ${tipo === "PF" ? "Pessoa Física" : "Pessoa Jurídica"
+          }`}
         bordered={false}
       >
         <Descriptions bordered column={1}>
@@ -52,7 +58,12 @@ export default function VisualizaPessoa() {
           <Descriptions.Item label="E-mail">{pessoa.email}</Descriptions.Item>
 
           {tipo === "PF" ? (
+            <>
             <Descriptions.Item label="CPF">{pessoa.cpf}</Descriptions.Item>
+            <Descriptions.Item label="Data de Nascimento">
+              {formatarData(pessoa.dataNascimento) ?? "Não informado"}
+            </Descriptions.Item>
+            </>
           ) : (
             <Descriptions.Item label="CNPJ">{pessoa.cnpj}</Descriptions.Item>
           )}
@@ -69,8 +80,8 @@ export default function VisualizaPessoa() {
           <Descriptions.Item label="Telefones">
             {pessoa.telefones?.length > 0
               ? pessoa.telefones
-                  .map((t) => `(${t.ddd}) ${t.numero}`)
-                  .join(" | ")
+                .map((t) => `(${t.ddd}) ${t.numero}`)
+                .join(" | ")
               : "Não informado"}
           </Descriptions.Item>
 
@@ -89,6 +100,9 @@ export default function VisualizaPessoa() {
                 {pessoa.ie?.numero
                   ? `Nº ${pessoa.ie.numero} - ${pessoa.ie.estado} (${pessoa.ie.dataRegistro})`
                   : "Não informado"}
+              </Descriptions.Item>
+              <Descriptions.Item label="Data de Registro da IE">
+                {formatarData(pessoa.ie?.dataRegistro)}
               </Descriptions.Item>
             </>
           )}

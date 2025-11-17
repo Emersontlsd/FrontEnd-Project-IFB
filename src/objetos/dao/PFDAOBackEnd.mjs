@@ -103,7 +103,7 @@ export default class PFDAO {
       cpf: pf.cpf,
 
       // ✔️ se backend retornar null/undefined/vazio, não quebra
-      dataNascimento: pf.dataNascimento ?? null,
+      dataNascimento: pf.dataNascimento || pf.data_nascimento || null,
 
       endereco: pf.endereco
         ? {
