@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import dayjs from "dayjs";
 import { Table, Button, Space, Popconfirm, message, Tag, Input, Select } from "antd";
 import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
@@ -54,6 +55,14 @@ export default function ListaPessoas() {
       dataIndex: tipo === "PF" ? "cpf" : "cnpj",
       key: "doc",
       width: 200,
+    },
+    {
+      title: tipo === "PF" ? "Data de Nascimento" : "Data de Registro",
+      key: "data",
+      render: (_, record) => {
+        const data = tipo === "PF" ? record.dataNascimento : record.dataRegistro;
+        return data ? dayjs(data).format("DD/MM/YYYY") : "-";
+      },
     },
     {
       title: "Ações",

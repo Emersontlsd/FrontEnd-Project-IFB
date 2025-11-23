@@ -56,6 +56,9 @@ export default function PessoaFormOOV2() {
 
         if (tipoParam === "PF") {
           valores.cpf = pessoa.cpf;
+          valores.dataNascimento = pessoa.dataNascimento
+            ? dayjs(pessoa.dataNascimento)
+            : null;
           valores.titulo = pessoa.titulo || { numero: "", zona: "", secao: "" };
         } else {
           const ieObj = pessoa.ie || {};
@@ -112,6 +115,13 @@ export default function PessoaFormOOV2() {
         pf.setNome(values.nome);
         pf.setEmail(values.email);
         pf.setCPF(values.cpf);
+
+        // ✅ Conversão correta da data de nascimento
+        const dn = values.dataNascimento;
+        const dataNascimento =
+          dn && typeof dn.format === "function" ? dn.format("YYYY-MM-DD") : dn;
+        pf.setDataNascimento(dataNascimento);
+
         pf.setEndereco(end);
 
         if (values.titulo) {
@@ -146,9 +156,7 @@ export default function PessoaFormOOV2() {
 
           const dr = values.ie.dataRegistro;
           const dataRegistro =
-            dr && typeof dr === "object" && typeof dr.format === "function"
-              ? dr.format("YYYY-MM-DD")
-              : dr || "";
+            dr && typeof dr.format === "function" ? dr.format("YYYY-MM-DD") : dr || "";
 
           ie.setDataRegistro(dataRegistro);
           pj.setIE(ie);

@@ -30,6 +30,7 @@ export default class PJDAO {
       nome: pj.getNome?.(),
       email: pj.getEmail?.(),
       cnpj: pj.getCNPJ?.(),
+      dataRegistro: ie?.getDataRegistro?.() ?? null,
       endereco: end
         ? {
             cep: end.getCep?.(),

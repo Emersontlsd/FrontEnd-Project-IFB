@@ -52,7 +52,12 @@ export default function VisualizaPessoa() {
           <Descriptions.Item label="E-mail">{pessoa.email}</Descriptions.Item>
 
           {tipo === "PF" ? (
-            <Descriptions.Item label="CPF">{pessoa.cpf}</Descriptions.Item>
+             <>
+             <Descriptions.Item label="CPF">{pessoa.cpf}</Descriptions.Item>
+             <Descriptions.Item label="Data de Nascimento">
+               {formatarData(pessoa.dataNascimento) ?? "Não informado"}
+             </Descriptions.Item>
+             </>
           ) : (
             <Descriptions.Item label="CNPJ">{pessoa.cnpj}</Descriptions.Item>
           )}
